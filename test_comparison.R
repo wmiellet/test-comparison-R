@@ -7,23 +7,21 @@ comparison <- function(x,y){
   tab <- table(factor(x,levs),factor(y,levs))
   tab2<-tab[order(tab[,2],decreasing=T),
             order(tab[2,],decreasing=T)]
-  tab3<-tab2[order(tab2[,1],decreasing=F),
-            order(tab2[1,],decreasing=F)]
-  McN <- stats::mcnemar.test(tab3[])
-  {total <- (tab3[1]+tab3[2]+tab3[3]+tab3[4])
-    sp <- (tab3[4]/(tab3[4]+tab3[2]))
-    sn <- (tab3[1]/(tab3[1]+tab3[3]))
-    ppv <- (tab3[1]/(tab3[1]+tab3[2]))
-    npv <- (tab3[4]/(tab3[4]+tab3[3]))
-    cc <- ((tab3[1]+tab3[4])/total)}
-  pyes <- (((tab3[1]+tab3[2])/total)*((tab3[1]+tab3[3])/total))
-  pno <- (((tab3[4]+tab3[2])/total)*((tab3[4]+tab3[3])/total))
+  McN <- stats::mcnemar.test(tab2[])
+  {total <- (tab2[1]+tab2[2]+tab2[3]+tab2[4])
+    sp <- (tab2[4]/(tab2[4]+tab2[2]))
+    sn <- (tab2[1]/(tab2[1]+tab2[3]))
+    ppv <- (tab2[1]/(tab2[1]+tab2[2]))
+    npv <- (tab2[4]/(tab2[4]+tab2[3]))
+    cc <- ((tab2[1]+tab2[4])/total)}
+  pyes <- (((tab2[1]+tab2[2])/total)*((tab2[1]+tab2[3])/total))
+  pno <- (((tab2[4]+tab2[2])/total)*((tab2[4]+tab2[3])/total))
   pe <- (pyes+pno)
   kappa <- ((cc-pe)/(1-pe))
-  SEsp <- (sqrt(sp*(1-sp)/(tab3[2]+tab3[4])))
-  SEsn <- (sqrt(sn*(1-sn)/(tab3[1]+tab3[3])))
-  SEppv <- (sqrt(ppv*(1-ppv)/(tab3[1]+tab3[2])))
-  SEnpv <- (sqrt(npv*(1-npv)/(tab3[3]+tab3[4])))
+  SEsp <- (sqrt(sp*(1-sp)/(tab2[2]+tab2[4])))
+  SEsn <- (sqrt(sn*(1-sn)/(tab2[1]+tab2[3])))
+  SEppv <- (sqrt(ppv*(1-ppv)/(tab2[1]+tab2[2])))
+  SEnpv <- (sqrt(npv*(1-npv)/(tab2[3]+tab2[4])))
   sp.ll <- sp-1.96*SEsp
   sp.ul <- sp+1.96*SEsp
   sn.ll <- sn-1.96*SEsn
@@ -49,5 +47,5 @@ comparison <- function(x,y){
             "-------------",
             "",sep="\n"))
   output <- (McN)
-  print(tab3)
+  print(tab2)
   return(output)}
