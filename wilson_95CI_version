@@ -13,6 +13,7 @@ comparison <- function(x,y){
     ppv <- (tab2[1]/(tab2[1]+tab2[2]))
     npv <- (tab2[4]/(tab2[4]+tab2[3]))
     cc <- ((tab2[1]+tab2[4])/total)}
+    prev <- ((tab2[1]+tab2[2])/total)
   pyes <- (((tab2[1]+tab2[2])/total)*((tab2[1]+tab2[3])/total))
   pno <- (((tab2[4]+tab2[2])/total)*((tab2[4]+tab2[3])/total))
   pe <- (pyes+pno)
@@ -34,7 +35,11 @@ comparison <- function(x,y){
   cc.ul <- binom.confint(total*cc,total,conf.level = 0.95,methods = "wilson")$upper
   ck.ll <- kappa-1.96*SEck
   ck.ul <- kappa+1.96*SEck
+  prev.ll <- binom.confint((total*prev),total,conf.level = 0.95,methods = "wilson")$lower
+  prev.ul <- binom.confint((total*prev),total,conf.level = 0.95,methods = "wilson")$upper
   cat(paste("-------------",
+            "Prevalence",round(prev*100,1),
+            round(prev.ll*100,1),round(prev.ul*100,1),
             "Positive predictive value",round(ppv*100,1),
             round(ppv.ll*100,1),round(ppv.ul*100,1),
             "Negative predictive value",round(npv*100,1),
