@@ -5,9 +5,7 @@ comparison <- function(x,y){
   x <- if_else(x == '2','0','1')
   y <- if_else(y == '2','0','1')
   levs <- sort(union(x, y))
-  tab <- table(factor(x,levs),factor(y,levs))
-  tab2<-tab[order(tab[1,],decreasing=F),
-            order(tab[,2],decreasing=T)]
+  tab2 <-table(factor(x, levels=c('1','0')), factor(y, levels = c('1', '0')))
   McN <- stats::mcnemar.test(tab2[])
   {total <- (tab2[1]+tab2[2]+tab2[3]+tab2[4])
     sp <- (tab2[4]/(tab2[4]+tab2[2]))
