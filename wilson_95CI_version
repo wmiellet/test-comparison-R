@@ -21,6 +21,7 @@ comparison <- function(x,y){
   SEsn <- (sqrt(sn*(1-sn)/(tab2[1]+tab2[3])))
   SEppv <- (sqrt(ppv*(1-ppv)/(tab2[1]+tab2[2])))
   SEnpv <- (sqrt(npv*(1-npv)/(tab2[3]+tab2[4])))
+  SEck <- (sqrt((cc*(1-cc))/(total*(1-pe)^2)))
   sp.ll<-binom.confint(tab2[4],(tab2[4]+tab2[2]),conf.level = 0.95,methods = "wilson")$lower
   sp.ul<-binom.confint(tab2[4],(tab2[4]+tab2[2]),conf.level = 0.95,methods = "wilson")$upper
   sn.ll<-binom.confint(tab2[1],(tab2[1]+tab2[3]),conf.level = 0.95,methods = "wilson")$lower
@@ -31,6 +32,8 @@ comparison <- function(x,y){
   npv.ul<-binom.confint(tab2[4],(tab2[4]+tab2[3]),conf.level = 0.95,methods = "wilson")$upper
   cc.ll <- binom.confint(total*cc,total,conf.level = 0.95,methods = "wilson")$lower
   cc.ul <- binom.confint(total*cc,total,conf.level = 0.95,methods = "wilson")$upper
+  ck.ll <- kappa-1.96*SEck
+  ck.ul <- kappa+1.96*SEck
   cat(paste("-------------",
             "Positive predictive value",round(ppv*100,1),
             round(ppv.ll*100,1),round(ppv.ul*100,1),
@@ -43,6 +46,7 @@ comparison <- function(x,y){
             "Percent agreement",round(cc*100,1),
             round(cc.ll*100,1),round(cc.ul*100,1),
             "Cohen's kappa",round(kappa,2),
+            round(ck.ll,2),round(ck.ul,2),
             "-------------",
             "",sep="\n"))
   output <- (McN)
