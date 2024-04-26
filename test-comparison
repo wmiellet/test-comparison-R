@@ -4,7 +4,7 @@ comparison <- function(x,y){
   library(binom) # R package for 95% CI interval estimation
   x <- as.factor(fifelse(x =='2','0',as.character(x)))
   y <- as.factor(fifelse(y == '2','0',as.character(y)))
-    levs <- sort(union(x, y))
+  levs <- sort(union(x, y))
   tab2 <-table(factor(x, levels=c('1','0')), factor(y, levels = c('1', '0')))
   McN <- stats::mcnemar.test(tab2[])
   {total <- (tab2[1]+tab2[2]+tab2[3]+tab2[4])
