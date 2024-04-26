@@ -1,10 +1,10 @@
 #Make tool for manual calculation of predictive values, concordance and their respective confidence intervals
 comparison <- function(x,y){
   library(dplyr)
-  library(binom)
+  library(binom) # R package for 95% CI interval estimation
   x <- as.factor(fifelse(x =='2','0',as.character(x)))
   y <- as.factor(fifelse(y == '2','0',as.character(y)))
-  levs <- sort(union(x, y))
+    levs <- sort(union(x, y))
   tab2 <-table(factor(x, levels=c('1','0')), factor(y, levels = c('1', '0')))
   McN <- stats::mcnemar.test(tab2[])
   {total <- (tab2[1]+tab2[2]+tab2[3]+tab2[4])
@@ -13,7 +13,7 @@ comparison <- function(x,y){
     ppv <- (tab2[1]/(tab2[1]+tab2[2]))
     npv <- (tab2[4]/(tab2[4]+tab2[3]))
     cc <- ((tab2[1]+tab2[4])/total)}
-    prev <- ((tab2[1]+tab2[2])/total)
+  prev <- ((tab2[1]+tab2[2])/total)
   pyes <- (((tab2[1]+tab2[2])/total)*((tab2[1]+tab2[3])/total))
   pno <- (((tab2[4]+tab2[2])/total)*((tab2[4]+tab2[3])/total))
   pe <- (pyes+pno)
