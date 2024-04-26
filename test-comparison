@@ -2,8 +2,8 @@
 comparison <- function(x,y){
   library(dplyr)
   library(binom)
-  x <- if_else(x == '2','0','1')
-  y <- if_else(y == '2','0','1')
+  x <- as.factor(fifelse(x =='2','0',as.character(x)))
+  y <- as.factor(fifelse(y == '2','0',as.character(y)))
   levs <- sort(union(x, y))
   tab2 <-table(factor(x, levels=c('1','0')), factor(y, levels = c('1', '0')))
   McN <- stats::mcnemar.test(tab2[])
